@@ -35,10 +35,12 @@ console.log('Pali & Dispari')
 //     return true
 // }
 
+// Genero un numero random tra 1 e 5 e lo restituisce
 function getRandomInt1to5() {
     return Math.floor((Math.random() * 5) + 1)
 }
 
+// Controlla se il numero passato è pari e restituisce un boolean
 function isEven(number) {
     const checkEven = number % 2 === 0
 
@@ -63,38 +65,49 @@ function isEven(number) {
 // // Stampo il messaggio
 // console.log(message)
 
+// Selezione tramite input tra pari e dispari
 const evenOrOdd = parseInt(prompt(
     `Scegli pari o dispari:
     0 = pari 
     1 = dispari`
 ))
 
-let playerLose = false
+// Inizializzo una variabile booleana per indicare se il player ha dato forfeit, utilizzata se inserisce dati non validi
+let playerForfeit = false
 
+// Controllo se i dati immessi, se non vanno bene mando un console error e forzo la sconfitta del giocatore
 if (evenOrOdd !== 0 && evenOrOdd !== 1) {
     console.error('Valore inserito per la selezione ERRATO!')
-    playerLose = true
+    playerForfeit = true
 }
 
+// Chiedo in input un numero da 1 a 5
 const playerNumber = parseInt(prompt('Inserisci un numero da 1 a 5'))
 
+// Controllo se i dati immessi, se non vanno bene mando un console error e forzo la sconfitta del giocatore
 if (playerNumber < 1 || playerNumber > 5) {
     console.error('Valore inserito per il lancio ERRATO!')
-    playerLose = true
+    playerForfeit = true
 }
+
 console.log('Player chose: ' + playerNumber)
 
+// Controllo se il giocatore ha scelto pari o dispari
 const playerEven = evenOrOdd === 0
 
+// Genero il tiro del Bot
 const botNumber = getRandomInt1to5()
 console.log('Bot chose: ' + botNumber)
 
+// Messaggio di default
 let message = 'Bot wins!'
 
+// Inizializzo e stampo la somma dei numeri del giocatore e del bot
 const result = playerNumber + botNumber
 console.log(result)
 
-if (playerLose === true) {
+// Controllo se la variabile di perdita forzata è vera o falsa, se è falsa controllo se il numero del risultato e la selezione del giocatore sono entrambi pari o entrambi dispari
+if (playerForfeit === true) {
     message = 'Player forfeited: ' + message
 } else if (playerEven && isEven(result) || !playerEven && !isEven(result)) {
     message = 'Player wins'
